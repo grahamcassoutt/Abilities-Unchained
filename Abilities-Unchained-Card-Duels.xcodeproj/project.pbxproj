@@ -7,6 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		511165CD2AEC6DAC00C8AB1D /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165CC2AEC6DAC00C8AB1D /* Character.swift */; };
+		511165CF2AEC892300C8AB1D /* GameplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165CE2AEC892300C8AB1D /* GameplayView.swift */; };
+		511165D92AED684000C8AB1D /* CharacterStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165D82AED684000C8AB1D /* CharacterStatistics.swift */; };
+		511165DB2AED68B200C8AB1D /* Chest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165DA2AED68B200C8AB1D /* Chest.swift */; };
+		511165DD2AED693000C8AB1D /* Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165DC2AED693000C8AB1D /* Relationship.swift */; };
+		511165E02AED697600C8AB1D /* RelationshipEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165DF2AED697600C8AB1D /* RelationshipEnum.swift */; };
+		511165E22AED6AAD00C8AB1D /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165E12AED6AAD00C8AB1D /* Game.swift */; };
+		511165E42AED6BB700C8AB1D /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165E32AED6BB700C8AB1D /* Ability.swift */; };
+		511165E62AED6C2B00C8AB1D /* AbilityStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165E52AED6C2B00C8AB1D /* AbilityStatistics.swift */; };
+		511165E82AED6C7D00C8AB1D /* DeathDamage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165E72AED6C7D00C8AB1D /* DeathDamage.swift */; };
+		511165EA2AED6CC100C8AB1D /* Poison.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165E92AED6CC100C8AB1D /* Poison.swift */; };
+		511165EC2AED6D0200C8AB1D /* ChargedBoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165EB2AED6D0200C8AB1D /* ChargedBoom.swift */; };
+		511165EE2AED6D5300C8AB1D /* Sacrifice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165ED2AED6D5300C8AB1D /* Sacrifice.swift */; };
+		511165F02AED6E1A00C8AB1D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165EF2AED6E1A00C8AB1D /* User.swift */; };
+		511165F22AED6E9200C8AB1D /* CharactersOwned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165F12AED6E9200C8AB1D /* CharactersOwned.swift */; };
+		511165F42AED6EDA00C8AB1D /* UserGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165F32AED6EDA00C8AB1D /* UserGame.swift */; };
+		511165F72AED6F1400C8AB1D /* CardsChosen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165F62AED6F1400C8AB1D /* CardsChosen.swift */; };
+		511165F92AED6F4A00C8AB1D /* CharactersOnBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165F82AED6F4A00C8AB1D /* CharactersOnBoard.swift */; };
+		511165FE2AED701B00C8AB1D /* UserChests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165FD2AED701B00C8AB1D /* UserChests.swift */; };
+		511166002AED702E00C8AB1D /* UserChest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511165FF2AED702E00C8AB1D /* UserChest.swift */; };
+		511166072AED989300C8AB1D /* CharacterProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511166062AED989300C8AB1D /* CharacterProfile.swift */; };
+		511166092AEDC24100C8AB1D /* OwnedCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511166082AEDC24100C8AB1D /* OwnedCharacters.swift */; };
+		511166122AF08F9E00C8AB1D /* ChooseCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511166112AF08F9E00C8AB1D /* ChooseCharacters.swift */; };
+		511166162AF09AF900C8AB1D /* CardHolderSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511166152AF09AF900C8AB1D /* CardHolderSelection.swift */; };
+		511667132AEB2BCA002BD0AC /* EmptyCardHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511667122AEB2BCA002BD0AC /* EmptyCardHolder.swift */; };
+		511667162AEC5CDC002BD0AC /* EmptyCardHolderSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511667152AEC5CDC002BD0AC /* EmptyCardHolderSet.swift */; };
 		51A773912AE0A488004C0BA7 /* Abilities_Unchained_Card_DuelsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A773902AE0A488004C0BA7 /* Abilities_Unchained_Card_DuelsApp.swift */; };
 		51A773932AE0A488004C0BA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A773922AE0A488004C0BA7 /* ContentView.swift */; };
 		51A773952AE0A489004C0BA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51A773942AE0A489004C0BA7 /* Assets.xcassets */; };
@@ -14,6 +40,32 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		511165CC2AEC6DAC00C8AB1D /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		511165CE2AEC892300C8AB1D /* GameplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameplayView.swift; sourceTree = "<group>"; };
+		511165D82AED684000C8AB1D /* CharacterStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterStatistics.swift; sourceTree = "<group>"; };
+		511165DA2AED68B200C8AB1D /* Chest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chest.swift; sourceTree = "<group>"; };
+		511165DC2AED693000C8AB1D /* Relationship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relationship.swift; sourceTree = "<group>"; };
+		511165DF2AED697600C8AB1D /* RelationshipEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationshipEnum.swift; sourceTree = "<group>"; };
+		511165E12AED6AAD00C8AB1D /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		511165E32AED6BB700C8AB1D /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
+		511165E52AED6C2B00C8AB1D /* AbilityStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatistics.swift; sourceTree = "<group>"; };
+		511165E72AED6C7D00C8AB1D /* DeathDamage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathDamage.swift; sourceTree = "<group>"; };
+		511165E92AED6CC100C8AB1D /* Poison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poison.swift; sourceTree = "<group>"; };
+		511165EB2AED6D0200C8AB1D /* ChargedBoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargedBoom.swift; sourceTree = "<group>"; };
+		511165ED2AED6D5300C8AB1D /* Sacrifice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sacrifice.swift; sourceTree = "<group>"; };
+		511165EF2AED6E1A00C8AB1D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		511165F12AED6E9200C8AB1D /* CharactersOwned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersOwned.swift; sourceTree = "<group>"; };
+		511165F32AED6EDA00C8AB1D /* UserGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGame.swift; sourceTree = "<group>"; };
+		511165F62AED6F1400C8AB1D /* CardsChosen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsChosen.swift; sourceTree = "<group>"; };
+		511165F82AED6F4A00C8AB1D /* CharactersOnBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersOnBoard.swift; sourceTree = "<group>"; };
+		511165FD2AED701B00C8AB1D /* UserChests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChests.swift; sourceTree = "<group>"; };
+		511165FF2AED702E00C8AB1D /* UserChest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChest.swift; sourceTree = "<group>"; };
+		511166062AED989300C8AB1D /* CharacterProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterProfile.swift; sourceTree = "<group>"; };
+		511166082AEDC24100C8AB1D /* OwnedCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnedCharacters.swift; sourceTree = "<group>"; };
+		511166112AF08F9E00C8AB1D /* ChooseCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCharacters.swift; sourceTree = "<group>"; };
+		511166152AF09AF900C8AB1D /* CardHolderSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHolderSelection.swift; sourceTree = "<group>"; };
+		511667122AEB2BCA002BD0AC /* EmptyCardHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCardHolder.swift; sourceTree = "<group>"; };
+		511667152AEC5CDC002BD0AC /* EmptyCardHolderSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCardHolderSet.swift; sourceTree = "<group>"; };
 		51A7738D2AE0A488004C0BA7 /* Abilities-Unchained-Card-Duels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Abilities-Unchained-Card-Duels.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51A773902AE0A488004C0BA7 /* Abilities_Unchained_Card_DuelsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Abilities_Unchained_Card_DuelsApp.swift; sourceTree = "<group>"; };
 		51A773922AE0A488004C0BA7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +84,150 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		511165CB2AEC6CD600C8AB1D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				511165DE2AED695900C8AB1D /* Enums */,
+				511165D72AED672C00C8AB1D /* Relationship */,
+				511165D62AED672500C8AB1D /* Chest */,
+				511165D52AED671A00C8AB1D /* Game */,
+				511165D42AED670F00C8AB1D /* Ability */,
+				511165D32AED670200C8AB1D /* User */,
+				511165D22AED66F600C8AB1D /* Character */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		511165D02AEC89B300C8AB1D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				511166032AED973000C8AB1D /* ChooseDeck */,
+				511166022AED968700C8AB1D /* HomeScreen */,
+				511165D12AEC89C100C8AB1D /* Gameplay */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		511165D12AEC89C100C8AB1D /* Gameplay */ = {
+			isa = PBXGroup;
+			children = (
+				511667122AEB2BCA002BD0AC /* EmptyCardHolder.swift */,
+				511667152AEC5CDC002BD0AC /* EmptyCardHolderSet.swift */,
+				511165CE2AEC892300C8AB1D /* GameplayView.swift */,
+			);
+			path = Gameplay;
+			sourceTree = "<group>";
+		};
+		511165D22AED66F600C8AB1D /* Character */ = {
+			isa = PBXGroup;
+			children = (
+				511165CC2AEC6DAC00C8AB1D /* Character.swift */,
+				511165D82AED684000C8AB1D /* CharacterStatistics.swift */,
+			);
+			path = Character;
+			sourceTree = "<group>";
+		};
+		511165D32AED670200C8AB1D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				511165FA2AED6FBF00C8AB1D /* Chest */,
+				511165F52AED6EFF00C8AB1D /* Game */,
+				511165EF2AED6E1A00C8AB1D /* User.swift */,
+				511165F12AED6E9200C8AB1D /* CharactersOwned.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		511165D42AED670F00C8AB1D /* Ability */ = {
+			isa = PBXGroup;
+			children = (
+				511165E32AED6BB700C8AB1D /* Ability.swift */,
+				511165E52AED6C2B00C8AB1D /* AbilityStatistics.swift */,
+				511165E72AED6C7D00C8AB1D /* DeathDamage.swift */,
+				511165E92AED6CC100C8AB1D /* Poison.swift */,
+				511165EB2AED6D0200C8AB1D /* ChargedBoom.swift */,
+				511165ED2AED6D5300C8AB1D /* Sacrifice.swift */,
+			);
+			path = Ability;
+			sourceTree = "<group>";
+		};
+		511165D52AED671A00C8AB1D /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				511165E12AED6AAD00C8AB1D /* Game.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		511165D62AED672500C8AB1D /* Chest */ = {
+			isa = PBXGroup;
+			children = (
+				511165DA2AED68B200C8AB1D /* Chest.swift */,
+			);
+			path = Chest;
+			sourceTree = "<group>";
+		};
+		511165D72AED672C00C8AB1D /* Relationship */ = {
+			isa = PBXGroup;
+			children = (
+				511165DC2AED693000C8AB1D /* Relationship.swift */,
+			);
+			path = Relationship;
+			sourceTree = "<group>";
+		};
+		511165DE2AED695900C8AB1D /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				511165DF2AED697600C8AB1D /* RelationshipEnum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		511165F52AED6EFF00C8AB1D /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				511165F32AED6EDA00C8AB1D /* UserGame.swift */,
+				511165F62AED6F1400C8AB1D /* CardsChosen.swift */,
+				511165F82AED6F4A00C8AB1D /* CharactersOnBoard.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		511165FA2AED6FBF00C8AB1D /* Chest */ = {
+			isa = PBXGroup;
+			children = (
+				511165FD2AED701B00C8AB1D /* UserChests.swift */,
+				511165FF2AED702E00C8AB1D /* UserChest.swift */,
+			);
+			path = Chest;
+			sourceTree = "<group>";
+		};
+		511166022AED968700C8AB1D /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		511166032AED973000C8AB1D /* ChooseDeck */ = {
+			isa = PBXGroup;
+			children = (
+				511166112AF08F9E00C8AB1D /* ChooseCharacters.swift */,
+				511166152AF09AF900C8AB1D /* CardHolderSelection.swift */,
+				511166102AEF7C3F00C8AB1D /* CharacterSelection */,
+			);
+			path = ChooseDeck;
+			sourceTree = "<group>";
+		};
+		511166102AEF7C3F00C8AB1D /* CharacterSelection */ = {
+			isa = PBXGroup;
+			children = (
+				511166062AED989300C8AB1D /* CharacterProfile.swift */,
+				511166082AEDC24100C8AB1D /* OwnedCharacters.swift */,
+			);
+			path = CharacterSelection;
+			sourceTree = "<group>";
+		};
 		51A773842AE0A488004C0BA7 = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +247,8 @@
 		51A7738F2AE0A488004C0BA7 /* Abilities-Unchained-Card-Duels */ = {
 			isa = PBXGroup;
 			children = (
+				511165D02AEC89B300C8AB1D /* View */,
+				511165CB2AEC6CD600C8AB1D /* Model */,
 				51A773902AE0A488004C0BA7 /* Abilities_Unchained_Card_DuelsApp.swift */,
 				51A773922AE0A488004C0BA7 /* ContentView.swift */,
 				51A773942AE0A489004C0BA7 /* Assets.xcassets */,
@@ -137,7 +335,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				511166162AF09AF900C8AB1D /* CardHolderSelection.swift in Sources */,
+				511165CF2AEC892300C8AB1D /* GameplayView.swift in Sources */,
+				511165E62AED6C2B00C8AB1D /* AbilityStatistics.swift in Sources */,
+				511165F42AED6EDA00C8AB1D /* UserGame.swift in Sources */,
+				511165DD2AED693000C8AB1D /* Relationship.swift in Sources */,
 				51A773932AE0A488004C0BA7 /* ContentView.swift in Sources */,
+				511667132AEB2BCA002BD0AC /* EmptyCardHolder.swift in Sources */,
+				511165E02AED697600C8AB1D /* RelationshipEnum.swift in Sources */,
+				511165CD2AEC6DAC00C8AB1D /* Character.swift in Sources */,
+				511165EC2AED6D0200C8AB1D /* ChargedBoom.swift in Sources */,
+				511165E22AED6AAD00C8AB1D /* Game.swift in Sources */,
+				511165D92AED684000C8AB1D /* CharacterStatistics.swift in Sources */,
+				511165E82AED6C7D00C8AB1D /* DeathDamage.swift in Sources */,
+				511165EA2AED6CC100C8AB1D /* Poison.swift in Sources */,
+				511165F92AED6F4A00C8AB1D /* CharactersOnBoard.swift in Sources */,
+				511165F22AED6E9200C8AB1D /* CharactersOwned.swift in Sources */,
+				511165EE2AED6D5300C8AB1D /* Sacrifice.swift in Sources */,
+				511166002AED702E00C8AB1D /* UserChest.swift in Sources */,
+				511165DB2AED68B200C8AB1D /* Chest.swift in Sources */,
+				511165F02AED6E1A00C8AB1D /* User.swift in Sources */,
+				511165F72AED6F1400C8AB1D /* CardsChosen.swift in Sources */,
+				511166072AED989300C8AB1D /* CharacterProfile.swift in Sources */,
+				511166092AEDC24100C8AB1D /* OwnedCharacters.swift in Sources */,
+				511166122AF08F9E00C8AB1D /* ChooseCharacters.swift in Sources */,
+				511667162AEC5CDC002BD0AC /* EmptyCardHolderSet.swift in Sources */,
+				511165E42AED6BB700C8AB1D /* Ability.swift in Sources */,
+				511165FE2AED701B00C8AB1D /* UserChests.swift in Sources */,
 				51A773912AE0A488004C0BA7 /* Abilities_Unchained_Card_DuelsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

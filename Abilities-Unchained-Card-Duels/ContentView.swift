@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack {
+            Image("background-plain").resizable().ignoresSafeArea()
+            
+            TabView {
+                GameplayView().tabItem { Text("Gameplay") }
+                ChooseCharacters().tabItem { Text("Choose Characters" )}
+            }
         }
-        .padding()
     }
 }
 
