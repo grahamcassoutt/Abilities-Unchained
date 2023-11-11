@@ -1,0 +1,144 @@
+{
+    "users": [
+        {
+            "id": "string",
+            "username": "string",
+            "email": "string",
+            "displayName": "string",
+            "isActive": "boolean",
+            "level": "int",
+	        "xp": "int",
+            "hitpoints": "int",
+            "trophies": "int",
+            "gold": "int",
+	        "wins": "int",
+            "charactersOwned" : [
+                {
+                    "characterId": "int",
+                    "level": "int",
+                    "currentXp": "int"
+                }
+            ],
+            "game": {
+                "cardsChosen": [
+                    {
+                        "characterId": "int",
+                        "level": "int",
+                        "isAlive": "boolean"
+                    }
+                ],
+                "charactersOnBoard": [
+                    {
+                        "attack": "int",
+                        "defense": "int"
+                    }
+                ],
+                "hitPoints": "int"
+            },
+            "chests": {
+                "maxCount": "int",
+                "currCount": "int",
+                "chest": [
+                    {
+                        "chestObject": "id",
+                        "timeLeft": "timestamp",
+                        "isActive": "boolean"
+                    }
+                ]
+            }
+        }
+    ],
+    "characters": [
+        {
+            "id": "int",
+            "name": "string",
+            "description": "string",
+	        "backOfCardDescription": "string",
+            "photoUrl": "string",
+            "soundEffect": "string",
+            "type": "enum",
+            "unlockedAt": "int",
+            "abilityId?": "int",
+            "characterStatistics": [
+                {
+                    "level": "int",
+                    "health": "int",
+                    "attack": "int",
+                    "xpToUpgrage": "int",
+                    "goldToUpgrade": "int"
+                }
+            ]
+        }
+    ],
+    "ability": [
+        {
+            "id": "int",
+            "name": "string",
+            "description": "string",
+            "icon": "string",
+            "visualEffect": "string",
+            "abilityStatistics": [
+                {
+                    "level": "int",
+                    "oppHP": "int",
+                    "thisCharacterAtt": "int",
+                    "yourSideDef": "int",
+                    "deathDamage?": {
+                        "characters": "int",
+                        "hitPoints": "int"
+                    },
+                    "poison?": {
+                        "numberOfTurns": "int",
+                        "damage": "int",
+                        "reusable": "boolean"
+                    },
+                    "chargedBoom?": {
+                        "numRoundsBetweenBoom": "int",
+                        "multiplier?": "int"
+                    },
+                    "sacrifice?": {
+                        "damageToCharacters": "int",
+                        "damageToHP": "int"
+                    }
+                }
+            ]
+        }
+    ],
+    "game": [
+        {
+            "id": "int",
+            "timestamp": "timestamp",
+            "playerAId": "string",
+            "playerBId": "string",
+            "winner": "string",
+            "playerACardsUsedIds": [
+                {
+                    "characterId": "int" 
+                }
+            ],
+            "playerBCardsUsedIds": [
+                {
+                    "characterId": "int" 
+                }
+            ]
+        }
+    ],
+    "chests": [
+        {
+            "id": "int",
+            "rarity": "string",
+            "XpAmount": "int",
+            "numDiffCards": "int",
+            "gold": "int",
+            "timeToOpen": "timestamp"
+        }
+    ],
+    "relationship": [
+        {
+            "id": "int",
+            "initiatingUserId": "string",
+            "receivingUserId": "string",
+            "relationshipStatus": "enum"
+        }
+    ]
+}
