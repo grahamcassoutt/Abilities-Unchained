@@ -1,17 +1,21 @@
 from flask import request, jsonify
 from models.character import Character, CharacterStatistics
-from characterModel import CharacterModel
+from .characterModel import CharacterModel
 import logging
 
 class CharacterEndpoints:
-    def get(self, character_id):
-        character = CharacterModel.get_character(character_id)
+    def __init__(self, db):
+        self.collection = db['Characters']
+        self.characterModel = CharacterModel(db)
+    
+    def get_character_by_id(self, character_id):
+        character = self.characterModel.get_character_by_id(character_id)
         if character:
-            return jsonify(Character(**character).to_dict())
+            return Character.from_dict(character).to_dict()
         else:
             return {"message": "Character not found"}, 404
 
-    def put(self, characterId):
+    def update_character(self, characterId):
         try:
             data = request.get_json()
             character_statistics_data = data.get("characterStatistics", [])
@@ -37,7 +41,7 @@ class CharacterEndpoints:
                 character_statistics=character_statistics_list
             )
 
-            if CharacterModel.update_character(characterId, character):
+            if self.characterModel.update_character(characterId, character):
                 return {"message": "Character updated successfully"}, 200
             else:
                 return {"message": "Character not found or update failed"}, 404
@@ -45,7 +49,7 @@ class CharacterEndpoints:
         except Exception as e:
             return {"message": f"Failed to update character: {str(e)}"}, 500
 
-    def post(self):
+    def create_character(self):
         data = request.get_json()
 
         logging.debug("Got data")
@@ -77,15 +81,15 @@ class CharacterEndpoints:
                 character_statistics=character_statistics_list
             )
 
-            character_id = CharacterModel.create_character(character)
+            character_id = self.characterModel.create_character(character)
             return {"character_id": character_id}, 201
         except Exception as e:
             logging.error(f"Failed to create character: {str(e)}")
             return {"message": f"Failed to create character: {str(e)}"}, 500
     
-    def delete(self, characterId):
+    def delete_character(self, characterId):
         try:
-            if CharacterModel.delete_character(characterId):
+            if self.characterModel.delete_character(characterId):
                 return {"message": "Character deleted successfully"}, 204
             else:
                 return {"message": "Character not found or delete failed"}, 404
@@ -93,9 +97,9 @@ class CharacterEndpoints:
         except Exception as e:
             return {"message": f"Failed to delete character: {str(e)}"}, 500
     
-    def get_all(self):
+    def get_all_characters(self):
         try:
-            characters = CharacterModel.get_all_characters()
+            characters = self.characterModel.get_all_characters()
             return jsonify([Character(**character).to_dict() for character in characters])
 
         except Exception as e:

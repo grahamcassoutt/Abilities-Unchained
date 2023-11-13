@@ -10,7 +10,7 @@ class CharacterModel:
         result = self.collection.insert_one(character_document)
         return str(result.inserted_id)
 
-    def get_character(self, character_id):
+    def get_character_by_id(self, character_id):
         character = self.collection.find_one({"_id": ObjectId(character_id)})
         return character
 
