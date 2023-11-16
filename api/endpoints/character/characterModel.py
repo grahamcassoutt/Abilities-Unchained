@@ -32,3 +32,7 @@ class CharacterModel:
     def get_all_characters(self):
         characters = list(self.collection.find())
         return characters
+    
+    def get_level_statistics(self, characterId, levelId = None):
+        character = self.collection.find_one({"_id": ObjectId(characterId)})
+        return character
