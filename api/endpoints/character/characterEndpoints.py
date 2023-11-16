@@ -49,8 +49,10 @@ class CharacterEndpoints:
                 sound_effect=data.get("soundEffect"),
                 unlocked_at=data.get("unlockedAt"),
                 ability_id=data.get("abilityId"),
-                character_statistics=character_statistics_list
+                character_statistics= self.characterStatistics
             )
+
+            logging.debug(character)
 
             if self.characterModel.update_character(id, character):
                 return {"message": "Character updated successfully"}, 200
@@ -61,18 +63,18 @@ class CharacterEndpoints:
             return {"message": f"Failed to update character: {str(e)}"}, 500
         
     def update_statistics(self, new_stats):
-        logging.debug(new_stats)
         for new_stat in new_stats:
+            level = new_stat.level
             existing_stat = next(
-                (stat for stat in self.characterStatistics if stat.level == new_stat.level),
+                (stat for stat in self.characterStatistics if stat.level == level),
                 None
             )
 
             if existing_stat:
                 existing_stat.health = new_stat.health
                 existing_stat.attack = new_stat.attack
-                existing_stat.xpToUpgrade = new_stat.xpToUpgrade
-                existing_stat.goldToUpgrade = new_stat.goldToUpgrade
+                existing_stat.xp_to_upgrade = new_stat.xp_to_upgrade
+                existing_stat.gold_to_upgrade = new_stat.gold_to_upgrade
             else:
                 self.characterStatistics.append(new_stat)
 
@@ -123,8 +125,8 @@ class CharacterEndpoints:
     def get_all_characters(self):
         try:
             characters = self.characterModel.get_all_characters()
-            logging.debug(characters)
-            return jsonify([Character(**character).to_dict() for character in characters])
+            character_instances = [Character.from_dict(character) for character in characters]
+            return jsonify([character.to_dict() for character in character_instances])
 
         except Exception as e:
             return {"message": f"Failed to retrieve characters: {str(e)}"}, 500
