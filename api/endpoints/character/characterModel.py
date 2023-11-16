@@ -1,3 +1,4 @@
+import logging
 import pymongo
 from bson.objectid import ObjectId
 
@@ -7,20 +8,21 @@ class CharacterModel:
 
     def create_character(self, character):
         character_document = character.to_dict()
+        logging.debug(character_document)
         result = self.collection.insert_one(character_document)
         return str(result.inserted_id)
 
-    def get_character_by_id(self, character_id):
-        character = self.collection.find_one({"_id": ObjectId(character_id)})
+    def get_character_by_id(self, characterId):
+        character = self.collection.find_one({"_id": ObjectId(characterId)})
         return character
 
-    def update_character(self, character_id, character):
-        character_document = character.to_dict()
-        result = self.collection.update_one({"_id": ObjectId(character_id)}, {"$set": character_document})
+    def update_character(self, characterId, character):
+        character_document = character.to_dict_for_update()
+        result = self.collection.update_one({"_id": ObjectId(characterId)}, {"$set": character_document})
         return result.modified_count > 0
 
-    def delete_character(self, character_id):
-        result = self.collection.delete_one({"_id": ObjectId(character_id)})
+    def delete_character(self, characterId):
+        result = self.collection.delete_one({"_id": ObjectId(characterId)})
         return result.deleted_count > 0
     
     def get_all_characters(self):

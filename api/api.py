@@ -1,5 +1,6 @@
 import logging
 from flask import Flask
+from flask_cors import CORS
 from pymongo import MongoClient
 import constants
 from endpoints.character.characterEndpoints import CharacterEndpoints
@@ -7,6 +8,7 @@ from endpoints.character.routes import setup_routes
 # from endpoints.user import userBlueprint
 
 app = Flask(__name__)
+CORS(app)
 
 logging.basicConfig(level=logging.DEBUG)
 
