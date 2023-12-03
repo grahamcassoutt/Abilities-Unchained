@@ -30,33 +30,9 @@ class CharacterModel:
         return result.deleted_count > 0
     
     def get_all_characters(self):
-        return list(self.collection.find())
-
-    def get_characters_by_level(self, data):
-        for req in data:
-            req['characterId'] = ObjectId(req['characterId'])
-
-        return self.collection.aggregate([
-            {
-                '$match': {'_id': {'$in': [req['characterId'] for req in data]}}
-            },
-            {
-                '$project': {
-                    '_id': 1,
-                    'name': 1,
-                    'description': 1,
-                    'backOfCardDescription': 1,
-                    'photoUrl': 1,
-                    'soundEffect': 1,
-                    'unlockedAt': 1,
-                    'abilityId': 1,
-                    'characterStatistics': {
-                        '$filter': {
-                            'input': '$characterStatistics',
-                            'as': 'stat',
-                            'cond': {'$eq': ['$$stat.level', {'$arrayElemAt': [{'$map': {'input': data, 'as': 'd', 'in': '$$d.level'}}, {'$indexOfArray': [{'$map': {'input': data, 'as': 'd', 'in': '$$d.characterId'}}, '$_id']}]}]}
-                        }
-                    }
-                }
-            }
-        ])
+        characters = list(self.collection.find())
+        return characters
+    
+    def get_level_statistics(self, characterId, levelId = None):
+        character = self.collection.find_one({"_id": ObjectId(characterId)})
+        return character

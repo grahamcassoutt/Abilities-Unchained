@@ -8,7 +8,7 @@ class Relationship:
         self.receivingUserId = receivingUserId
         self.relationshipStatus = relationshipStatus
 
-    def to_json(self):
+    def to_dict(self):
         return {
             "_id": ObjectId(),
             "initiatingUserId": self.initiatingUserId,

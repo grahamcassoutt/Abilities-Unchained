@@ -35,7 +35,7 @@ class User:
         self.game = game
         self.chests = chests
 
-    def to_json(self):
+    def to_dict(self):
         return {
             "_id": ObjectId(),
             "username": self.username,

@@ -130,15 +130,25 @@ class CharacterEndpoints:
 
         except Exception as e:
             return {"message": f"Failed to retrieve characters: {str(e)}"}, 500
-
-    def get_characters_by_levels(self):
+        
+    def get_level_statistics(self, characterId, levelId = None):
         try:
-            data = request.get_json()
-            characters_with_levels = []
-            charactersOneLevel = self.characterModel.get_characters_by_level(data)
-            characters_with_levels = [Character.from_dict(character).to_dict() for character in charactersOneLevel]
-            return characters_with_levels
+            character = self.characterModel.get_character_by_id(characterId)
+
+            if character:
+                characterObject = Character.from_dict(character).to_dict()
+                character_statistics = characterObject.get('characterStatistics')
+                stats_for_level = next(
+                    (stat for stat in character_statistics if str(stat.get("level")) == str(levelId)),
+                    None
+                )
+
+                logging.debug(stats_for_level)
+                if stats_for_level:
+                    return jsonify(stats_for_level)
+                
+            return {"message": "Character not found"}, 404
 
         except Exception as e:
-            return {"message": f"Failed to retrieve characters: {str(e)}"}, 500
-
+            return {"message": f"Failed to retrieve character: {str(e)}"}, 500
+        

@@ -14,7 +14,7 @@ class Game:
         self.playerACardsUsedIds = playerACardsUsedIds
         self.playerBCardsUsedIds = playerBCardsUsedIds
 
-    def to_json(self):
+    def to_dict(self):
         return {
             "_id": ObjectId(),
             "timestamp": self.timestamp.isoformat() if self.timestamp else None,

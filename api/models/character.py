@@ -68,7 +68,7 @@ class Character:
             photoUrl=data["photoUrl"],
             soundEffect=data["soundEffect"],
             unlockedAt=data["unlockedAt"],
-            abilityId=data.get("abilityId"),
+            abilityId=data.get("abilityId", None),
             characterStatistics=character_statistics,
             _id=_id
         )

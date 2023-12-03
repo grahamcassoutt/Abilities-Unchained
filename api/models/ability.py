@@ -23,10 +23,10 @@ class Sacrifice:
         self.damageToHP = damageToHP
 
 class AbilityStatistics:
-    def __init__(self, level, oppHP, thisCharacterAtt, yourSideDef, deathDamage, poison, chargedBoom, sacrifice):
+    def __init__(self, level, oppHP, attGainedWhenLoseHP, yourSideDef, deathDamage = None, poison = None, chargedBoom = None, sacrifice = None):
         self.level = level
         self.oppHP = oppHP
-        self.thisCharacterAtt = thisCharacterAtt
+        self.attGainedWhenLoseHP = attGainedWhenLoseHP
         self.yourSideDef = yourSideDef
         self.deathDamage = deathDamage
         self.poison = poison
@@ -41,10 +41,9 @@ class Ability:
         self.visualEffect = visualEffect
         self.abilityStatistics = abilityStatistics
 
-    def to_json(self):
+    def to_dict(self):
         return {
             "_id": ObjectId(),
-            "id": self.id,
             "name": self.name,
             "description": self.description,
             "icon": self.icon,
@@ -53,7 +52,7 @@ class Ability:
                 {
                     "level": stats.level,
                     "oppHP": stats.oppHP,
-                    "thisCharacterAtt": stats.thisCharacterAtt,
+                    "attGainedWhenLoseHP": stats.attGainedWhenLoseHP,
                     "yourSideDef": stats.yourSideDef,
                     "deathDamage": {
                         "characters": stats.deathDamage.characters,
@@ -77,33 +76,69 @@ class Ability:
             ]
         }
     
-# Example creation of Ability
-# ability = Ability(
-#     id=1,
-#     name="Some Ability",
-#     description="Description of the ability",
-#     icon="path/to/icon.png",
-#     visualEffect="path/to/effect.png",
-#     abilityStatistics=[
-#         AbilityStatistics(
-#             level=1,
-#             oppHP=100,
-#             thisCharacterAtt=50,
-#             yourSideDef=20,
-#             deathDamage=DeathDamage(characters=2, hitPoints=10),
-#             poison=Poison(numberOfTurns=3, damage=5, reusable=True),
-#             chargedBoom=ChargedBoom(numRoundsBetweenBoom=2, multiplier=3),
-#             sacrifice=Sacrifice(damageToCharacters=20, damageToHP=15)
-#         ),
-#         AbilityStatistics(
-#             level=2,
-#             oppHP=120,
-#             thisCharacterAtt=60,
-#             yourSideDef=25,
-#             deathDamage=None,
-#             poison=None,
-#             chargedBoom=None,
-#             sacrifice=None
-#         )
-#     ]
-# )
+    @classmethod
+    def from_dict(cls, data):
+        poison = [
+            Poison(
+                numberOfTurns=stat['poison']['numberOfTurns'],
+                damage=stat['poison']['damage'],
+                reusable=stat['poison']['reusable']
+            ) if 'poison' in stat else None
+            for stat in data.get('abilityStatistics', [])
+        ]
+
+        death_damage = [
+            DeathDamage(
+                characters=stat['deathDamage']['characters'],
+                hitPoints=stat['deathDamage']['hitPoints']
+            ) if 'deathDamage' in stat else None
+            for stat in data.get('abilityStatistics', [])
+        ]
+
+        charged_boom = [
+            ChargedBoom(
+                numRoundsBetweenBoom=stat['chargedBoom']['numRoundsBetweenBoom'],
+                multiplier=stat['chargedBoom']['multiplier']
+            ) if 'chargedBoom' in stat else None
+            for stat in data.get('abilityStatistics', [])
+        ]
+
+        sacrifice = [
+            Sacrifice(
+                damageToCharacters=stat['sacrifice']['damageToCharacters'],
+                damageToHP=stat['sacrifice']['damageToHP']
+            ) if 'sacrifice' in stat else None
+            for stat in data.get('abilityStatistics', [])
+        ]
+
+        ability_statistics = [
+            AbilityStatistics(
+                level=stat['level'],
+                oppHP=stat['oppHP'],
+                attGainedWhenLoseHP=stat['attGainedWhenLoseHP'],
+                yourSideDef=stat['yourSideDef'],
+                deathDamage=death_damage[i],
+                poison=poison[i],
+                chargedBoom=charged_boom[i],
+                sacrifice=sacrifice[i]
+            ) for i, stat in enumerate(data.get("abilityStatistics", []))
+        ]
+
+        _id = str(data.get("_id", ObjectId()))
+
+        return cls(
+            name=data['name'],
+            description=data['description'],
+            icon=data['icon'],
+            visualEffect=data['visualEffect'],
+            abilityStatistics=ability_statistics,
+            _id=_id
+        )
+    
+    def to_dict_for_update(self):
+        ability_dict = {
+            key: value
+            for key, value in self.to_dict().items()
+            if key != '_id' and value is not None
+        }
+        return ability_dict

@@ -9,7 +9,7 @@ class Chest:
         self.gold = gold
         self.timeToOpen = timeToOpen
 
-    def to_json(self):
+    def to_dict(self):
         return {
             "_id": ObjectId(),
             "rarity": self.rarity,

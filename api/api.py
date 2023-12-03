@@ -4,7 +4,9 @@ from flask_cors import CORS
 from pymongo import MongoClient
 import constants
 from endpoints.character.characterEndpoints import CharacterEndpoints
-from endpoints.character.routes import setup_routes
+from endpoints.character.routes import setup_routes as CharacterRoutes
+from endpoints.ability.abilityEndpoints import AbilityEndpoints
+from endpoints.ability.routes import setup_routes as AbilityRoutes
 # from endpoints.user import userBlueprint
 
 app = Flask(__name__)
@@ -17,11 +19,11 @@ logging.basicConfig(level=logging.DEBUG)
 mongo = MongoClient(constants.DB_URI)
 db = mongo[constants.DATABASE_NAME]
 
-# app.register_blueprint(CharacterEndpoints(db), url_prefix="/api/character")
-# app.register_blueprint(userBlueprint, url_prefix="/api/user")
-
 character_endpoints = CharacterEndpoints(db)
-setup_routes(app, character_endpoints)
+CharacterRoutes(app, character_endpoints)
+
+ability_endpoints = AbilityEndpoints(db)
+AbilityRoutes(app, ability_endpoints)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8000, debug=True)
