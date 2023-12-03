@@ -30,7 +30,7 @@ struct CharacterProfile: View {
     var body: some View {
         
         ZStack {
-            Image("background-plain").resizable().ignoresSafeArea()
+            Image("background-plain").resizable()
             
             Rectangle()
                 .frame(width: width, height: height)
@@ -95,7 +95,7 @@ struct CharacterProfile: View {
 
 //struct CharacterProfile_Previews: PreviewProvider {
 //    static var previews: some View {
-//        CharacterProfile(character: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card11", unlockedAt: 1, characterStatistics: [CharacterStatistics(level: 1, health: 10, attack: 5, xpToUpgrade: 100, goldToUpgrade: 2000)])
+//        CharacterProfile(character: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card11", unlockedAt: 1, characterStatistics: CharacterStatistics(level: 1, health: 10, attack: 5, xpToUpgrade: 100, goldToUpgrade: 2000))
 ////                         callback:
 //        )
 //    }

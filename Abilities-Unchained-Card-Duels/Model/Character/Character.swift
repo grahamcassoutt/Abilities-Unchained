@@ -16,9 +16,9 @@ class Character: Identifiable {
 //    var type: Enum
     var unlockedAt: Int
     var AbilityId: Int?
-    var characterStatistics: [CharacterStatistics]
+    var characterStatistics: CharacterStatistics
     
-    init(name: String, description: String, backOfCardDescription: String, photoUrl: String, unlockedAt: Int, AbilityId: Int? = nil, characterStatistics: [CharacterStatistics]) {
+    init(name: String, description: String, backOfCardDescription: String, photoUrl: String, unlockedAt: Int, AbilityId: Int? = nil, characterStatistics: CharacterStatistics) {
         self.name = name
         self.description = description
         self.backOfCardDescription = backOfCardDescription

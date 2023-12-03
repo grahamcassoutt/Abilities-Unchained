@@ -13,9 +13,9 @@ class Ability {
     var description: String
     var icon: String
     var visualEffect: String
-    var abilityStatistics: [AbilityStatistics]
+    var abilityStatistics: AbilityStatistics
     
-    init(id: Int, name: String, description: String, icon: String, visualEffect: String, abilityStatistics: [AbilityStatistics]) {
+    init(id: Int, name: String, description: String, icon: String, visualEffect: String, abilityStatistics: AbilityStatistics) {
         self.id = id
         self.name = name
         self.description = description
