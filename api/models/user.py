@@ -20,7 +20,8 @@ class Chest:
         self.isActive = isActive
 
 class User:
-    def __init__(self, username, email, displayName, isActive, level, xp, hitpoints, trophies, gold, wins, charactersOwned, game, chests):
+    def __init__(self, username, email, displayName, isActive, level, xp, hitpoints, trophies, gold, wins, charactersOwned, game, chests, _id=None):
+        self._id = _id
         self.username = username
         self.email = email
         self.displayName = displayName
@@ -36,7 +37,7 @@ class User:
         self.chests = chests
 
     def to_dict(self):
-        return {
+        user_dict = {
             "_id": ObjectId(),
             "username": self.username,
             "email": self.email,
@@ -87,3 +88,8 @@ class User:
                 ]
             }
         }
+
+        if self._id is not None:
+            user_dict["_id"] = str(self._id)
+
+        return user_dict

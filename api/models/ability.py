@@ -34,7 +34,8 @@ class AbilityStatistics:
         self.sacrifice = sacrifice
 
 class Ability:
-    def __init__(self, name, description, icon, visualEffect, abilityStatistics):
+    def __init__(self, name, description, icon, visualEffect, abilityStatistics, _id = None):
+        self._id = _id
         self.name = name
         self.description = description
         self.icon = icon
@@ -42,7 +43,7 @@ class Ability:
         self.abilityStatistics = abilityStatistics
 
     def to_dict(self):
-        return {
+        ability_dict = {
             "_id": ObjectId(),
             "name": self.name,
             "description": self.description,
@@ -75,6 +76,11 @@ class Ability:
                 for stats in self.abilityStatistics
             ]
         }
+
+        if self._id is not None:
+            ability_dict["_id"] = str(self._id)
+
+        return ability_dict
     
     @classmethod
     def from_dict(cls, data):
@@ -83,7 +89,7 @@ class Ability:
                 numberOfTurns=stat['poison']['numberOfTurns'],
                 damage=stat['poison']['damage'],
                 reusable=stat['poison']['reusable']
-            ) if 'poison' in stat else None
+            ) if 'poison' in stat and stat['poison'] is not None else None
             for stat in data.get('abilityStatistics', [])
         ]
 
@@ -91,7 +97,7 @@ class Ability:
             DeathDamage(
                 characters=stat['deathDamage']['characters'],
                 hitPoints=stat['deathDamage']['hitPoints']
-            ) if 'deathDamage' in stat else None
+            ) if 'deathDamage' in stat and stat['deathDamage'] is not None else None
             for stat in data.get('abilityStatistics', [])
         ]
 
@@ -99,7 +105,7 @@ class Ability:
             ChargedBoom(
                 numRoundsBetweenBoom=stat['chargedBoom']['numRoundsBetweenBoom'],
                 multiplier=stat['chargedBoom']['multiplier']
-            ) if 'chargedBoom' in stat else None
+            ) if 'chargedBoom' in stat and stat['chargedBoom'] is not None else None
             for stat in data.get('abilityStatistics', [])
         ]
 
@@ -107,7 +113,7 @@ class Ability:
             Sacrifice(
                 damageToCharacters=stat['sacrifice']['damageToCharacters'],
                 damageToHP=stat['sacrifice']['damageToHP']
-            ) if 'sacrifice' in stat else None
+            ) if 'sacrifice' in stat and stat['sacrifice'] is not None else None
             for stat in data.get('abilityStatistics', [])
         ]
 

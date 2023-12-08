@@ -12,7 +12,7 @@ class AbilityEndpoints:
     def get_ability_by_id(self, abilityId):
         ability = self.abilityModel.get_ability_by_id(abilityId)
         if ability:
-            return ability.from_dict(ability).to_dict()
+            return Ability.from_dict(ability).to_dict()
         else:
             return {"message": "ability not found"}, 404
 

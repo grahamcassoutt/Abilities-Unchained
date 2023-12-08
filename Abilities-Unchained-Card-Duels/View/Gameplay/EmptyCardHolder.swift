@@ -50,7 +50,7 @@ struct EmptyCardHolder: View {
 
 struct EmptyCardHolder_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyCardHolder(character: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card11", unlockedAt: 1, characterStatistics: []))
+        EmptyCardHolder(character: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card11", unlockedAt: 1, characterStatistics: CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)))
     }
 }
 

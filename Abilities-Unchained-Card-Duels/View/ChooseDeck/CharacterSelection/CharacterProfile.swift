@@ -112,7 +112,7 @@ struct DescriptionAndStats: View {
         VStack {
             Text(character.description)
                 .padding(10)
-            Statistics(characterStats: character.characterStatistics[0])
+            Statistics(characterStats: character.characterStatistics)
         }
     }
 }

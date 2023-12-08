@@ -20,12 +20,10 @@ class AbilityModel:
         ability_document = ability.to_dict_for_update()
         levels = [stat['level'] for stat in ability_document['abilityStatistics']]
 
-        # Update other dynamic fields
         update_operations = {
             '$set': {key: value for key, value in ability_document.items() if key != 'abilityStatistics' and key != '_id'}
         }
 
-        # Update abilityStatistics individually
         for stat in ability_document['abilityStatistics']:
             level = stat['level']
             for key, value in stat.items():
@@ -71,7 +69,7 @@ class AbilityModel:
     def get_all_abilities(self):
         return list(self.collection.find())
     
-    def get_characters_by_level(self, data):
+    def get_abilities_by_level(self, data):
         for req in data:
             req['abilityId'] = ObjectId(req['abilityId'])
 

@@ -1,7 +1,6 @@
 
-def setup_routes(app, characterEndpoints):
-    app.add_url_rule("/api/characters", view_func=characterEndpoints.get_all_characters, methods=["GET"])
-    app.add_url_rule("/api/character/<characterId>", view_func=characterEndpoints.get_character_by_id, methods=["GET"])
-    app.add_url_rule("/api/character/<characterId>", view_func=characterEndpoints.delete_character, methods=["DELETE"])
-    app.add_url_rule("/api/character", view_func=characterEndpoints.create_or_update_character, methods=["POST"])
-    app.add_url_rule("/api/character/<characterId>/<levelId>", view_func=characterEndpoints.get_level_statistics, methods=["GET"])
+def setup_routes(app, relationshipEndpoints):
+    app.add_url_rule("/api/relationships", view_func=relationshipEndpoints.get_all_relationships_by_status, methods=["POST"])
+    app.add_url_rule("/api/relationship/<user1>/<user2>", view_func=relationshipEndpoints.get_relationship_by_user_ids, methods=["GET"])
+    app.add_url_rule("/api/relationship/<user1>/<user2>", view_func=relationshipEndpoints.delete_relationship, methods=["DELETE"])
+    app.add_url_rule("/api/relationship", view_func=relationshipEndpoints.create_or_update_relationship, methods=["POST"])

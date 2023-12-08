@@ -5,8 +5,13 @@ class CardUsed:
     def __init__(self, characterId):
         self.characterId = characterId
 
+    @classmethod
+    def from_dict(cls, card_dict):
+        return cls(characterId=card_dict['characterId'])
+
 class Game:
-    def __init__(self, timestamp, playerAId, playerBId, winner, playerACardsUsedIds, playerBCardsUsedIds):
+    def __init__(self, timestamp, playerAId, playerBId, winner, playerACardsUsedIds, playerBCardsUsedIds, _id=None):
+        self._id = _id
         self.timestamp = timestamp
         self.playerAId = playerAId
         self.playerBId = playerBId
@@ -15,7 +20,7 @@ class Game:
         self.playerBCardsUsedIds = playerBCardsUsedIds
 
     def to_dict(self):
-        return {
+        game_dict = {
             "_id": ObjectId(),
             "timestamp": self.timestamp.isoformat() if self.timestamp else None,
             "playerAId": self.playerAId,
@@ -24,3 +29,21 @@ class Game:
             "playerACardsUsedIds": [{"characterId": card.characterId} for card in self.playerACardsUsedIds],
             "playerBCardsUsedIds": [{"characterId": card.characterId} for card in self.playerBCardsUsedIds]
         }
+
+        if self._id is not None:
+            game_dict["_id"] = str(self._id)
+
+        return game_dict
+    
+    @classmethod
+    def from_dict(cls, game_dict):
+        timestamp = game_dict.get('timestamp')
+        playerAId = game_dict['playerAId']
+        playerBId = game_dict['playerBId']
+        winner = game_dict['winner']
+        playerACardsUsedIds = [CardUsed.from_dict(card_dict) for card_dict in game_dict['playerACardsUsedIds']]
+        playerBCardsUsedIds = [CardUsed.from_dict(card_dict) for card_dict in game_dict['playerBCardsUsedIds']]
+
+        _id = str(game_dict.get("_id", ObjectId()))
+
+        return cls(timestamp, playerAId, playerBId, winner, playerACardsUsedIds, playerBCardsUsedIds, _id)

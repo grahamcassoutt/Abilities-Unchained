@@ -1,7 +1,5 @@
 
-def setup_routes(app, characterEndpoints):
-    app.add_url_rule("/api/characters", view_func=characterEndpoints.get_all_characters, methods=["GET"])
-    app.add_url_rule("/api/character/<characterId>", view_func=characterEndpoints.get_character_by_id, methods=["GET"])
-    app.add_url_rule("/api/character/<characterId>", view_func=characterEndpoints.delete_character, methods=["DELETE"])
-    app.add_url_rule("/api/character", view_func=characterEndpoints.create_or_update_character, methods=["POST"])
-    app.add_url_rule("/api/character/<characterId>/<levelId>", view_func=characterEndpoints.get_level_statistics, methods=["GET"])
+def setup_routes(app, chestEndpoints):
+    app.add_url_rule("/api/chest/<chestId>", view_func=chestEndpoints.get_chest_by_id, methods=["GET"])
+    app.add_url_rule("/api/chest/<chestId>", view_func=chestEndpoints.delete_chest, methods=["DELETE"])
+    app.add_url_rule("/api/chest", view_func=chestEndpoints.create_or_update_chest, methods=["POST"])
