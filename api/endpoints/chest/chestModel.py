@@ -17,8 +17,7 @@ class ChestModel:
         return chest
 
     def update_chest(self, chestId, chest):
-        chest_document = chest.to_dict_for_update()
-        result = self.collection.update_one({"_id": ObjectId(chestId)}, {"$set": chest_document})
+        result = self.collection.update_one({"_id": ObjectId(chestId)}, {"$set": chest})
         if result.modified_count > 0:
             logging.debug("Update successful")
         else:

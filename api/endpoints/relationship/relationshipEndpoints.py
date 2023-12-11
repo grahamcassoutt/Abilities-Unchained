@@ -13,37 +13,34 @@ class RelationshipEndpoints:
     def get_relationship_by_user_ids(self, user1, user2):
         relationship = self.relationshipModel.get_relationship_by_user_ids(user1, user2)
         if relationship:
-            return relationship.from_dict(relationship).to_dict()
+            return Relationship.from_dict(relationship).to_dict()
         else:
             return {"message": "relationship not found"}, 404
 
-    def create_or_update_relationship(self, data):
-        user1 = data.get("user1")
-        user2 = data.get("user2")
+    def create_or_update_relationship(self):
+        data = request.get_json()
+        user1 = data.get("initiatingUserId")
+        user2 = data.get("receivingUserId")
         relationshipStatus = data.get("relationshipStatus")
         try:
             relationship = self.relationshipModel.get_relationship_by_user_ids(user1, user2)
-            if relationship:
-                relationshipStatusEnum = RelationshipStatus[relationshipStatus]
-                relationship.relationshipStatus = relationshipStatusEnum
-                self.relationshipModel.update_relationship_status(relationship)
-
+            if relationship != None:
+                print(relationshipStatus)
+                print(relationship['_id'])
+                self.relationshipModel.update_relationship_status(str(relationship['_id']), relationshipStatus)
                 return {"message": "relationship updated successfully"}, 200
             else:
-                self.create_relationship(user1, user2, relationshipStatus)
+                logging.debug("IN CREATE")
+                response = self.create_relationship(data)
+                return response
 
         except Exception as e:
             return {"message": f"Failed to create or update relationship: {str(e)}"}, 500
 
-    def create_relationship(self, user1, user2, relationshipStatus):
+    def create_relationship(self, data):
         try:
-            relationship = Relationship(
-                initiatingUserId=user1,
-                receivingUserId=user2,
-                relationshipStatus=relationshipStatus
-            )
-
-            relationshipId = self.relationshipModel.create_relationship(relationship)
+            relationshipInstance = Relationship.from_dict(data)
+            relationshipId = self.relationshipModel.create_relationship(relationshipInstance)
             return {"relationshipId": relationshipId}, 201
         except Exception as e:
             logging.error(f"Failed to create relationship: {str(e)}")
@@ -61,12 +58,13 @@ class RelationshipEndpoints:
         except Exception as e:
             return {"message": f"Failed to delete relationship: {str(e)}"}, 500
     
-    def get_all_relationships_by_status(self, data):
+    def get_all_relationships_by_status(self):
+        data = request.get_json()
         userId = data.get("userId")
         relationshipStatus = data.get("relationshipStatus")
         try:
             relationships = self.relationshipModel.get_all_relationships_by_status(userId, relationshipStatus)
-            relationship_instances = [relationship.from_dict(relationship) for relationship in relationships]
+            relationship_instances = [Relationship.from_dict(relationship) for relationship in relationships]
             return jsonify([relationship.to_dict() for relationship in relationship_instances])
 
         except Exception as e:

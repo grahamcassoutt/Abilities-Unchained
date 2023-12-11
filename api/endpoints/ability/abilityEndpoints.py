@@ -85,30 +85,8 @@ class AbilityEndpoints:
             return {"message": "No data provided in the request"}, 400
 
         try:
-            ability_statistics_data = data.get("abilityStatistics", [])
-            logging.debug(ability_statistics_data)
-            ability_statistics_list = [
-                AbilityStatistics(
-                    level = stat_data.get("level"),
-                    oppHP = stat_data.get("oppHP"),
-                    attGainedWhenLoseHP = stat_data.get("attGainedWhenLoseHP"),
-                    yourSideDef = stat_data.get("yourSideDef"),
-                    deathDamage = stat_data.get("deathDamage"),
-                    poison = stat_data.get("poison"),
-                    chargedBoom = stat_data.get("chargedBoom"),
-                    sacrifice = stat_data.get("sacrifice"),
-                ) for stat_data in ability_statistics_data
-            ]
-
-            ability = Ability(
-                name = data.get("name"),
-                description = data.get("description"),
-                icon = data.get("icon"),
-                visualEffect = data.get("visualEffect"),
-                abilityStatistics = ability_statistics_list
-            )
-
-            abilityId = self.abilityModel.create_ability(ability)
+            abilityInstance = Ability.from_dict(data)
+            abilityId = self.abilityModel.create_ability(abilityInstance)
             return {"abilityId": abilityId}, 201
         except Exception as e:
             logging.error(f"Failed to create ability: {str(e)}")

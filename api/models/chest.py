@@ -36,11 +36,4 @@ class Chest:
         _id = str(chest_dict.get("_id", ObjectId()))
 
         return cls(rarity, xpAmount, numDiffCards, gold, timeToOpen, _id)
-    
-    def to_dict_for_update(self):
-        chest_dict = {
-            key: value
-            for key, value in self.to_dict().items()
-            if key != '_id' and value is not None
-        }
-        return chest_dict
+

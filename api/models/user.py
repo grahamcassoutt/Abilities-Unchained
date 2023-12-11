@@ -1,26 +1,36 @@
 from pymongo import MongoClient
 from bson import ObjectId
 
-class CharacterInGame:
-    def __init__(self, characterId, level, isAlive):
-        self.characterId = characterId
-        self.level = level
-        self.isAlive = isAlive
-
 class CharacterOwned:
     def __init__(self, characterId, level, currentXp):
         self.characterId = characterId
         self.level = level
         self.currentXp = currentXp
 
+    def to_dict(self):
+        return {
+            "characterId": self.characterId,
+            "level": self.level,
+            "currentXp": self.currentXp
+        }
+
 class Chest:
-    def __init__(self, chestObject, timeLeft, isActive):
-        self.chestObject = chestObject
+    def __init__(self, userChestId, chestId, timeLeft, isActive):
+        self.userChestId = userChestId
+        self.chestId = chestId
         self.timeLeft = timeLeft
         self.isActive = isActive
 
+    def to_dict(self):
+        return {
+            "userChestId": self.userChestId,
+            "chestId": self.chestId,
+            "timeLeft": self.timeLeft,
+            "isActive": self.isActive
+        }
+
 class User:
-    def __init__(self, username, email, displayName, isActive, level, xp, hitpoints, trophies, gold, wins, charactersOwned, game, chests, _id=None):
+    def __init__(self, username, email, displayName, isActive, level, xp, hitpoints, trophies, gold, wins, charactersOwned, chests, game = None, _id=None):
         self._id = _id
         self.username = username
         self.email = email
@@ -57,31 +67,14 @@ class User:
                 }
                 for character in self.charactersOwned
             ],
-            "game": {
-                "cardsChosen": [
-                    {
-                        "characterId": card.characterId,
-                        "level": card.level,
-                        "isAlive": card.isAlive
-                    }
-                    for card in self.game['cardsChosen']
-                ],
-                "charactersOnBoard": [
-                    {
-                        "attack": character.attack,
-                        "defense": character.defense
-                    }
-                    for character in self.game['charactersOnBoard']
-                ],
-                "hitPoints": self.game['hitPoints']
-            },
             "chests": {
                 "maxCount": self.chests['maxCount'],
                 "currCount": self.chests['currCount'],
                 "chest": [
                     {
-                        "chestObject": chest.chestObject,
-                        "timeLeft": chest.timeLeft.isoformat() if chest.timeLeft else None,
+                        "userChestId": chest.userChestId,
+                        "chestId": chest.chestId,
+                        "timeLeft": chest.timeLeft,
                         "isActive": chest.isActive
                     }
                     for chest in self.chests['chest']
@@ -93,3 +86,46 @@ class User:
             user_dict["_id"] = str(self._id)
 
         return user_dict
+    
+    @classmethod
+    def from_dict(cls, json_data):
+        characters_owned = [
+            CharacterOwned(
+                characterId=char['characterId'],
+                level=char['level'],
+                currentXp=char['currentXp']
+            )
+            for char in json_data.get('charactersOwned', [])
+        ]
+
+        chests = {
+            "maxCount": json_data.get('chests', {}).get('maxCount'),
+            "currCount": json_data.get('chests', {}).get('currCount'),
+            "chest": [
+                Chest(
+                    userChestId=chest['userChestId'],
+                    chestId=chest['chestId'],
+                    timeLeft=chest['timeLeft'],
+                    isActive=chest['isActive']
+                )
+                for chest in json_data.get('chests', {}).get('chest', [])
+            ]
+        }
+
+        _id = str(json_data.get("_id", ObjectId()))
+
+        return cls(
+            _id=_id,
+            username=json_data['username'],
+            email=json_data['email'],
+            displayName=json_data['displayName'],
+            isActive=json_data['isActive'],
+            level=json_data['level'],
+            xp=json_data['xp'],
+            hitpoints=json_data['hitpoints'],
+            trophies=json_data['trophies'],
+            gold=json_data['gold'],
+            wins=json_data['wins'],
+            charactersOwned=characters_owned,
+            chests=chests
+        )

@@ -83,30 +83,8 @@ class CharacterEndpoints:
             return {"message": "No data provided in the request"}, 400
 
         try:
-            character_statistics_data = data.get("characterStatistics", [])
-
-            character_statistics_list = [
-                CharacterStatistics(
-                    level=stat_data.get("level"),
-                    health=stat_data.get("health"),
-                    attack=stat_data.get("attack"),
-                    xp_to_upgrade=stat_data.get("xpToUpgrade"),
-                    gold_to_upgrade=stat_data.get("goldToUpgrade")
-                ) for stat_data in character_statistics_data
-            ]
-
-            character = Character(
-                name=data.get("name"),
-                description=data.get("description"),
-                back_of_card_description=data.get("backOfCardDescription"),
-                photo_url=data.get("photoUrl"),
-                sound_effect=data.get("soundEffect"),
-                unlocked_at=data.get("unlockedAt"),
-                ability_id=data.get("abilityId"),
-                character_statistics=character_statistics_list
-            )
-
-            characterId = self.characterModel.create_character(character)
+            characterInstance = Character.from_dict(data)
+            characterId = self.characterModel.create_character(characterInstance)
             return {"characterId": characterId}, 201
         except Exception as e:
             logging.error(f"Failed to create character: {str(e)}")

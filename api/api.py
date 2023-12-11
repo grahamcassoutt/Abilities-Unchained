@@ -9,6 +9,12 @@ from endpoints.ability.abilityEndpoints import AbilityEndpoints
 from endpoints.ability.routes import setup_routes as AbilityRoutes
 from endpoints.chest.chestEndpoints import ChestEndpoints
 from endpoints.chest.routes import setup_routes as ChestRoutes
+from endpoints.relationship.relationshipEndpoints import RelationshipEndpoints
+from endpoints.relationship.routes import setup_routes as RelationshipRoutes
+from endpoints.game.gameEndponts import GameEndpoints
+from endpoints.game.routes import setup_routes as GameRoutes
+from endpoints.user.userEndpoints import UserEndpoints
+from endpoints.user.routes import setup_routes as UserRoutes
 
 
 app = Flask(__name__)
@@ -29,6 +35,15 @@ AbilityRoutes(app, ability_endpoints)
 
 chest_endpoints = ChestEndpoints(db)
 ChestRoutes(app, chest_endpoints)
+
+relationship_endpoints = RelationshipEndpoints(db)
+RelationshipRoutes(app, relationship_endpoints)
+
+game_endpoints = GameEndpoints(db)
+GameRoutes(app, game_endpoints)
+
+user_endpoints = UserEndpoints(db)
+UserRoutes(app, user_endpoints)
 
 if __name__ == '__main__':
     app.run(port=7050, debug=True)

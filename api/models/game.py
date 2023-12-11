@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from bson import ObjectId
+from datetime import datetime
 
 class CardUsed:
     def __init__(self, characterId):
@@ -22,7 +23,7 @@ class Game:
     def to_dict(self):
         game_dict = {
             "_id": ObjectId(),
-            "timestamp": self.timestamp.isoformat() if self.timestamp else None,
+            "timestamp": self.timestamp.isoformat() if isinstance(self.timestamp, datetime) else self.timestamp,
             "playerAId": self.playerAId,
             "playerBId": self.playerBId,
             "winner": self.winner,

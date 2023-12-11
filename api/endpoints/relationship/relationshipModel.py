@@ -8,7 +8,6 @@ class RelationshipModel:
 
     def create_relationship(self, relationship):
         relationship_document = relationship.to_dict()
-        logging.debug(relationship_document)
         result = self.collection.insert_one(relationship_document)
         return str(result.inserted_id)
 
@@ -21,10 +20,10 @@ class RelationshipModel:
         })
         return relationship
 
-    def update_relationship_status(self, relationship):
+    def update_relationship_status(self, relationshipId, relationshipStatus):
         result = self.collection.update_one(
-            {"_id": ObjectId(relationship['_id'])},
-            {"$set": {"relationshipStatus": relationship.relationshipStatus.name}}
+            {"_id": relationshipId},
+            {"$set": {"relationshipStatus": relationshipStatus}}
         )
         
         if result.modified_count > 0:
@@ -36,7 +35,7 @@ class RelationshipModel:
 
 
     def delete_relationship(self, relationshipId):
-        result = self.collection.delete_one({"_id": ObjectId(relationshipId)})
+        result = self.collection.delete_one({"_id": relationshipId})
         return result.deleted_count > 0
     
     def get_all_relationships_by_status(self, userId, relationshipStatus):

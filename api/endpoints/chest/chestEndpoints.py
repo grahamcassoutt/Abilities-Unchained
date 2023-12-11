@@ -11,7 +11,7 @@ class ChestEndpoints:
     def get_chest_by_id(self, chestId):
         chest = self.chestModel.get_chest_by_id(chestId)
         if chest:
-            return Chest.from_dict(chest).to_dict()
+            return Chest.from_dict(chest)
         else:
             return {"message": "Chest not found"}, 404
 
@@ -25,19 +25,11 @@ class ChestEndpoints:
 
     def update_chest(self, data):
         try:
-            id = data.get('id')
+            chest = self.chestModel.get_chest_by_id(data.get('id'))
+            chest.update(data)
+            del chest['id']
 
-            chest = Chest(
-                rarity=data.get("rarity"),
-                xpAmount=data.get("xpAmount"),
-                numDiffCards=data.get("numDiffCards"),
-                gold=data.get("gold"),
-                timeToOpen=data.get("timeToOpen")
-            )
-
-            logging.debug(chest)
-
-            if self.chestModel.update_chest(id, chest):
+            if self.chestModel.update_chest(data.get('id'), chest):
                 return {"message": "Chest updated successfully"}, 200
             else:
                 return {"message": "Chest not found or update failed"}, 404
@@ -50,15 +42,8 @@ class ChestEndpoints:
             return {"message": "No data provided in the request"}, 400
 
         try:
-            chest = Chest(
-                rarity=data.get("rarity"),
-                xpAmount=data.get("xpAmount"),
-                numDiffCards=data.get("numDiffCards"),
-                gold=data.get("gold"),
-                timeToOpen=data.get("timeToOpen")
-            )
-
-            chestId = self.chestModel.create_chest(chest)
+            chestInstance = Chest.from_dict(data)
+            chestId = self.chestModel.create_chest(chestInstance)
             return {"chestId": chestId}, 201
         except Exception as e:
             logging.error(f"Failed to create chest: {str(e)}")

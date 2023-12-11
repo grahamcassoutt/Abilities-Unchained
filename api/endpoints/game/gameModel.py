@@ -8,14 +8,14 @@ class GameModel:
 
     def create_game(self, game):
         game_document = game.to_dict()
-        logging.debug(game_document)
+        print(game_document)
         result = self.collection.insert_one(game_document)
         return str(result.inserted_id)
 
     def get_game_by_id(self, gameId):
-        game = self.collection.find_one({"_id": ObjectId(gameId)})
+        game = self.collection.find_one({"_id": gameId})
         return game
 
     def delete_game(self, gameId):
-        result = self.collection.delete_one({"_id": ObjectId(gameId)})
+        result = self.collection.delete_one({"_id": gameId})
         return result.deleted_count > 0
