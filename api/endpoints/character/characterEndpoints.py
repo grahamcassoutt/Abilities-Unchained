@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from models.character import Character, CharacterStatistics
+from models.character import Character
 from .characterModel import CharacterModel
 import logging
 
@@ -12,7 +12,7 @@ class CharacterEndpoints:
     def get_character_by_id(self, characterId):
         character = self.characterModel.get_character_by_id(characterId)
         if character:
-            return Character.from_dict(character).to_dict()
+            return Character.from_dict(character)
         else:
             return {"message": "Character not found"}, 404
 
@@ -26,35 +26,11 @@ class CharacterEndpoints:
 
     def update_character(self, data):
         try:
-            id = data.get('id')
+            character = self.characterModel.get_character_by_id(data.get('id'))
             character_statistics_data = data.get("characterStatistics", [])
+            character = self.update_statistics(character, character_statistics_data)
 
-            character_statistics_list = [
-                CharacterStatistics(
-                    level=stat_data.get("level"),
-                    health=stat_data.get("health"),
-                    attack=stat_data.get("attack"),
-                    xp_to_upgrade=stat_data.get("xpToUpgrade"),
-                    gold_to_upgrade=stat_data.get("goldToUpgrade")
-                ) for stat_data in character_statistics_data
-            ]
-
-            self.update_statistics(character_statistics_list)
-
-            character = Character(
-                name=data.get("name"),
-                description=data.get("description"),
-                back_of_card_description=data.get("backOfCardDescription"),
-                photo_url=data.get("photoUrl"),
-                sound_effect=data.get("soundEffect"),
-                unlocked_at=data.get("unlockedAt"),
-                ability_id=data.get("abilityId"),
-                character_statistics= self.characterStatistics
-            )
-
-            logging.debug(character)
-
-            if self.characterModel.update_character(id, character):
+            if self.characterModel.update_character(data.get('id'), character):
                 return {"message": "Character updated successfully"}, 200
             else:
                 return {"message": "Character not found or update failed"}, 404
@@ -62,21 +38,23 @@ class CharacterEndpoints:
         except Exception as e:
             return {"message": f"Failed to update character: {str(e)}"}, 500
         
-    def update_statistics(self, new_stats):
+    def update_statistics(self, character, new_stats):
         for new_stat in new_stats:
-            level = new_stat.level
+            level = new_stat['level']
             existing_stat = next(
-                (stat for stat in self.characterStatistics if stat.level == level),
+                (stat for stat in character['characterStatistics'] if stat['level'] == level),
                 None
             )
 
             if existing_stat:
-                existing_stat.health = new_stat.health
-                existing_stat.attack = new_stat.attack
-                existing_stat.xp_to_upgrade = new_stat.xp_to_upgrade
-                existing_stat.gold_to_upgrade = new_stat.gold_to_upgrade
+                existing_stat['health'] = new_stat.get('health', existing_stat['health'])
+                existing_stat['attack'] = new_stat.get('attack', existing_stat['attack'])
+                existing_stat['xpToUpgrade'] = new_stat.get('xpToUpgrade', existing_stat['xpToUpgrade'])
+                existing_stat['goldToUpgrade'] = new_stat.get('goldToUpgrade', existing_stat['goldToUpgrade'])
             else:
-                self.characterStatistics.append(new_stat)
+                character['characterStatistics'].append(new_stat)
+
+        return character
 
     def create_character(self, data):
         if not data:

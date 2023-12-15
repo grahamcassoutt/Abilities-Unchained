@@ -13,57 +13,20 @@ class AbilityModel:
         return str(result.inserted_id)
 
     def get_ability_by_id(self, abilityId):
-        ability = self.collection.find_one({"_id": ObjectId(abilityId)})
+        ability = self.collection.find_one({"_id": abilityId})
         return ability
 
     def update_ability(self, abilityId, ability):
-        ability_document = ability.to_dict_for_update()
-        levels = [stat['level'] for stat in ability_document['abilityStatistics']]
-
-        update_operations = {
-            '$set': {key: value for key, value in ability_document.items() if key != 'abilityStatistics' and key != '_id'}
-        }
-
-        for stat in ability_document['abilityStatistics']:
-            level = stat['level']
-            for key, value in stat.items():
-                if key != 'level':
-                    self.update_ability_statistic(abilityId, level, key, value)
-
-        logging.debug(f"Query Criteria: {{'_id': ObjectId('{abilityId}')}}")
-        logging.debug(f"Update Operations: {update_operations}")
-
-        result = self.collection.update_one(
-            {"_id": ObjectId(abilityId)},
-            update_operations
-        )
-
+        result = self.collection.update_one({"_id": abilityId}, {"$set": ability})
         if result.modified_count > 0:
             logging.debug("Update successful")
         else:
             logging.error(f"Update failed: {result.raw_result}")
-
         return result.modified_count > 0
-
-    def update_ability_statistic(self, abilityId, level, key, value):
-        logging.debug(f"Updating abilityStatistic for level {level}, key: {key}, value: {value}")
-
-        result = self.collection.update_one(
-            {"_id": ObjectId(abilityId), "abilityStatistics.level": level},
-            {"$set": {f"abilityStatistics.$.{key}": value}}
-        )
-
-        if result.modified_count > 0:
-            logging.debug("Update successful")
-        else:
-            logging.error(f"Update failed: {result.raw_result}")
-
-        return result.modified_count > 0
-
 
 
     def delete_ability(self, abilityId):
-        result = self.collection.delete_one({"_id": ObjectId(abilityId)})
+        result = self.collection.delete_one({"_id": abilityId})
         return result.deleted_count > 0
     
     def get_all_abilities(self):

@@ -13,12 +13,11 @@ class CharacterModel:
         return str(result.inserted_id)
 
     def get_character_by_id(self, characterId):
-        character = self.collection.find_one({"_id": ObjectId(characterId)})
+        character = self.collection.find_one({"_id": characterId})
         return character
 
     def update_character(self, characterId, character):
-        character_document = character.to_dict_for_update()
-        result = self.collection.update_one({"_id": ObjectId(characterId)}, {"$set": character_document})
+        result = self.collection.update_one({"_id": characterId}, {"$set": character})
         if result.modified_count > 0:
             logging.debug("Update successful")
         else:
@@ -26,7 +25,7 @@ class CharacterModel:
         return result.modified_count > 0
 
     def delete_character(self, characterId):
-        result = self.collection.delete_one({"_id": ObjectId(characterId)})
+        result = self.collection.delete_one({"_id": characterId})
         return result.deleted_count > 0
     
     def get_all_characters(self):

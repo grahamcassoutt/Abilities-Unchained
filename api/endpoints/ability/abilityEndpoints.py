@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from models.ability import Ability, AbilityStatistics
+from models.ability import Ability
 from .abilityModel import AbilityModel
 import logging
 
@@ -7,12 +7,11 @@ class AbilityEndpoints:
     def __init__(self, db):
         self.collection = db['Abilities']
         self.abilityModel = AbilityModel(db)
-        self.abilityStatistics = []
     
     def get_ability_by_id(self, abilityId):
         ability = self.abilityModel.get_ability_by_id(abilityId)
         if ability:
-            return Ability.from_dict(ability).to_dict()
+            return Ability.from_dict(ability)
         else:
             return {"message": "ability not found"}, 404
 
@@ -26,33 +25,12 @@ class AbilityEndpoints:
 
     def update_ability(self, data):
         try:
-            id = data.get('id')
+            ability = self.abilityModel.get_ability_by_id(data.get('id'))
             ability_statistics_data = data.get("abilityStatistics", [])
 
-            ability_statistics_list = [
-                AbilityStatistics(
-                    level = stat_data.get("level"),
-                    oppHP = stat_data.get("oppHP"),
-                    attGainedWhenLoseHP = stat_data.get("attGainedWhenLoseHP"),
-                    yourSideDef = stat_data.get("yourSideDef"),
-                    deathDamage = stat_data.get("deathDamage"),
-                    poison = stat_data.get("poison"),
-                    chargedBoom = stat_data.get("chargedBoom"),
-                    sacrifice = stat_data.get("sacrifice"),
-                ) for stat_data in ability_statistics_data
-            ]
+            ability = self.update_statistics(ability, ability_statistics_data)
 
-            self.update_statistics(ability_statistics_list)
-
-            ability = Ability(
-                name = data.get("name"),
-                description = data.get("description"),
-                icon = data.get("icon"),
-                visualEffect = data.get("visualEffect"),
-                abilityStatistics = ability_statistics_list
-            )
-
-            if self.abilityModel.update_ability(id, ability):
+            if self.abilityModel.update_ability(data.get('id'), ability):
                 return {"message": "ability updated successfully"}, 200
             else:
                 return {"message": "ability not found or update failed"}, 404
@@ -60,25 +38,26 @@ class AbilityEndpoints:
         except Exception as e:
             return {"message": f"Failed to update ability: {str(e)}"}, 500
         
-    def update_statistics(self, new_stats):
+    def update_statistics(self, ability, new_stats):
         for new_stat in new_stats:
-            level = new_stat.level
+            level = new_stat['level']
             existing_stat = next(
-                (stat for stat in self.abilityStatistics if stat.level == level),
+                (stat for stat in ability['abilityStatistics'] if stat['level'] == level),
                 None
             )
 
             if existing_stat:
-                existing_stat.level = new_stat.level
-                existing_stat.oppHP = new_stat.oppHP
-                existing_stat.attGainedWhenLoseHP = new_stat.attGainedWhenLoseHP
-                existing_stat.yourSideDef = new_stat.yourSideDef
-                existing_stat.deathDamage = new_stat.deathDamage
-                existing_stat.poison = new_stat.poison
-                existing_stat.chargedBoom = new_stat.chargedBoom
-                existing_stat.sacrifice = new_stat.sacrifice
+                existing_stat['oppHP'] = new_stat.get('oppHP', existing_stat['oppHP'])
+                existing_stat['attGainedWhenLoseHP'] = new_stat.get('attGainedWhenLoseHP', existing_stat['attGainedWhenLoseHP'])
+                existing_stat['yourSideDef'] = new_stat.get('yourSideDef', existing_stat['yourSideDef'])
+                existing_stat['deathDamage'] = new_stat.get('deathDamage', existing_stat['deathDamage'])
+                existing_stat['poison'] = new_stat.get('poison', existing_stat['poison'])
+                existing_stat['chargedBoom'] = new_stat.get('chargedBoom', existing_stat['chargedBoom'])
+                existing_stat['sacrifice'] = new_stat.get('sacrifice', existing_stat['sacrifice'])
             else:
-                self.abilityStatistics.append(new_stat)
+                ability['abilityStatistics'].append(new_stat)
+
+        return Ability.from_dict(ability).to_dict()
 
     def create_ability(self, data):
         if not data:

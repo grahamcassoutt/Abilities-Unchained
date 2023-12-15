@@ -8,11 +8,11 @@
 import Foundation
 
 class ChargedBoom {
-    var numRoiudsBetweenBoom: Int
+    var numRoundsBetweenBoom: Int
     var multiplier: Int
     
-    init(numRoiudsBetweenBoom: Int, multiplier: Int) {
-        self.numRoiudsBetweenBoom = numRoiudsBetweenBoom
+    init(numRoundsBetweenBoom: Int, multiplier: Int) {
+        self.numRoundsBetweenBoom = numRoundsBetweenBoom
         self.multiplier = multiplier
     }
 }
