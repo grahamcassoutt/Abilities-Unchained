@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Poison {
+class Poison: Decodable {
     var numberOfTurns: Int
     var damage: Int
     var reusable: Bool

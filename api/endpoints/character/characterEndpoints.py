@@ -86,6 +86,17 @@ class CharacterEndpoints:
 
         except Exception as e:
             return {"message": f"Failed to retrieve characters: {str(e)}"}, 500
+        
+    def get_characters_by_levels_specific(self, hasAbility):
+        try:
+            data = request.get_json()
+            characters_with_levels = []
+            charactersOneLevel = self.characterModel.get_characters_by_level(data, hasAbility)
+            characters_with_levels = [Character.from_dict(character).to_dict() for character in charactersOneLevel]
+            return characters_with_levels
+
+        except Exception as e:
+            return {"message": f"Failed to retrieve characters: {str(e)}"}, 500
 
     def get_characters_by_levels(self):
         try:

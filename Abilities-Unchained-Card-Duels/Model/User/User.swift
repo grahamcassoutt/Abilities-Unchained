@@ -20,10 +20,12 @@ class User: Identifiable {
     var gold: Int
     var wins: Int
     var charactersOwned: [CharacterOwned]
-    var game: UserGame
+    var abilityCardsSlected: [CharacterOwned]
+    var nonAbilityCardsSlected: [CharacterOwned]
+    var game: UserGame?
     var chests: UserChests
     
-    init(username: String, email: String, displayName: String, isActive: Bool, level: Int, xp: Int, hitpoints: Int, trophies: Int, gold: Int, wins: Int, charactersOwned: [CharacterOwned], game: UserGame, chests: UserChests) {
+    init(username: String, email: String, displayName: String, isActive: Bool, level: Int, xp: Int, hitpoints: Int, trophies: Int, gold: Int, wins: Int, charactersOwned: [CharacterOwned], abilityCardsSlected: [CharacterOwned], nonAbilityCardsSlected: [CharacterOwned], game: UserGame? = nil, chests: UserChests) {
         self.id = UUID()
         self.username = username
         self.email = email
@@ -36,6 +38,8 @@ class User: Identifiable {
         self.gold = gold
         self.wins = wins
         self.charactersOwned = charactersOwned
+        self.abilityCardsSlected = abilityCardsSlected
+        self.nonAbilityCardsSlected = nonAbilityCardsSlected
         self.game = game
         self.chests = chests
     }

@@ -31,31 +31,75 @@ class CharacterModel:
     def get_all_characters(self):
         return list(self.collection.find())
 
-    def get_characters_by_level(self, data):
-        for req in data:
-            req['characterId'] = ObjectId(req['characterId'])
+    def get_characters_by_level(self, data, hasAbility = None):
+        if hasAbility == 'true':
+            return self.collection.aggregate([
+                {
+                    '$match': {
+                        '_id': {'$in': [req['characterId'] for req in data]},
+                        'abilityId': {'$ne': None}
+                    }
+                },
+                {
+                    '$project': {
+                        '_id': 1,
+                        'name': 1,
+                        'description': 1,
+                        'backOfCardDescription': 1,
+                        'photoUrl': 1,
+                        'soundEffect': 1,
+                        'unlockedAt': 1,
+                        'abilityId': 1,
+                        'characterStatistics': 1
+                    }
+                }
+            ])
 
-        return self.collection.aggregate([
-            {
-                '$match': {'_id': {'$in': [req['characterId'] for req in data]}}
-            },
-            {
-                '$project': {
-                    '_id': 1,
-                    'name': 1,
-                    'description': 1,
-                    'backOfCardDescription': 1,
-                    'photoUrl': 1,
-                    'soundEffect': 1,
-                    'unlockedAt': 1,
-                    'abilityId': 1,
-                    'characterStatistics': {
-                        '$filter': {
-                            'input': '$characterStatistics',
-                            'as': 'stat',
-                            'cond': {'$eq': ['$$stat.level', {'$arrayElemAt': [{'$map': {'input': data, 'as': 'd', 'in': '$$d.level'}}, {'$indexOfArray': [{'$map': {'input': data, 'as': 'd', 'in': '$$d.characterId'}}, '$_id']}]}]}
+        elif hasAbility == 'false':
+            return self.collection.aggregate([
+                {
+                    '$match': {
+                        '_id': {'$in': [req['characterId'] for req in data]},
+                        'abilityId': {'$eq': None}
+                    }
+                },
+                {
+                    '$project': {
+                        '_id': 1,
+                        'name': 1,
+                        'description': 1,
+                        'backOfCardDescription': 1,
+                        'photoUrl': 1,
+                        'soundEffect': 1,
+                        'unlockedAt': 1,
+                        'abilityId': 1,
+                        'characterStatistics': 1
+                    }
+                }
+            ])
+
+        else:
+            return self.collection.aggregate([
+                {
+                    '$match': {'_id': {'$in': [req['characterId'] for req in data]}}
+                },
+                {
+                    '$project': {
+                        '_id': 1,
+                        'name': 1,
+                        'description': 1,
+                        'backOfCardDescription': 1,
+                        'photoUrl': 1,
+                        'soundEffect': 1,
+                        'unlockedAt': 1,
+                        'abilityId': 1,
+                        'characterStatistics': {
+                            '$filter': {
+                                'input': '$characterStatistics',
+                                'as': 'stat',
+                                'cond': {'$eq': ['$$stat.level', {'$arrayElemAt': [{'$map': {'input': data, 'as': 'd', 'in': '$$d.level'}}, {'$indexOfArray': [{'$map': {'input': data, 'as': 'd', 'in': '$$d.characterId'}}, '$_id']}]}]}
+                            }
                         }
                     }
                 }
-            }
-        ])
+            ])

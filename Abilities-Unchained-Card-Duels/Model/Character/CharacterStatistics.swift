@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CharacterStatistics {
+class CharacterStatistics: Decodable {
     var level: Int
     var health: Int
     var attack: Int
@@ -21,4 +21,20 @@ class CharacterStatistics {
         self.xpToUpgrade = xpToUpgrade
         self.goldToUpgrade = goldToUpgrade
     }
+    
+//    static func toCharacterStatistics(from json: String) -> CharacterStatistics? {
+//            guard let jsonData = json.data(using: .utf8) else {
+//                print("Error converting JSON string to data.")
+//                return nil
+//            }
+//
+//            do {
+//                let decoder = JSONDecoder()
+//                let characterStatistics = try decoder.decode(CharacterStatistics.self, from: jsonData)
+//                return characterStatistics
+//            } catch {
+//                print("Error decoding JSON: \(error.localizedDescription)")
+//                return nil
+//            }
+//        }
 }

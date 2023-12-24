@@ -8,13 +8,20 @@
 import Foundation
 
 class CharacterOwned {
-    var characterId: Int
+    var characterId: String
     var level: Int
     var currentXp: Int
+    var abilityStats: AbilityOwned?
     
-    init(characterId: Int, level: Int, currentXp: Int) {
+    init(characterId: String, level: Int, currentXp: Int, abilityStats: AbilityOwned?) {
         self.characterId = characterId
         self.level = level
         self.currentXp = currentXp
+        self.abilityStats = abilityStats
     }
+}
+
+struct SimplifiedCharacter: Encodable {
+    var characterId: String
+    var level: Int
 }

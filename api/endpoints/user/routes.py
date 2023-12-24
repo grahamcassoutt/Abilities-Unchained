@@ -6,3 +6,5 @@ def setup_routes(app, userEndpoints):
     app.add_url_rule("/api/user/update", view_func=userEndpoints.update_user, methods=["POST"])
     app.add_url_rule("/api/user/updateCharacters", view_func=userEndpoints.update_characters, methods=["POST"])
     app.add_url_rule("/api/user/updateChests", view_func=userEndpoints.update_chests, methods=["POST"])
+    app.add_url_rule("/api/user/swapChosenCards", view_func=userEndpoints.swap_chosen_cards, methods=["POST"])
+    

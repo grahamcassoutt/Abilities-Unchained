@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Sacrifice {
+class Sacrifice: Decodable {
     var damageToCharacters: Int?
     var damageToHP: Int?
     

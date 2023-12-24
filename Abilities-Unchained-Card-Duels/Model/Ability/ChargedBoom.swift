@@ -7,11 +7,11 @@
 
 import Foundation
 
-class ChargedBoom {
+class ChargedBoom: Decodable {
+    var multiplier: Double
     var numRoundsBetweenBoom: Int
-    var multiplier: Int
     
-    init(numRoundsBetweenBoom: Int, multiplier: Int) {
+    init(multiplier: Double, numRoundsBetweenBoom: Int) {
         self.numRoundsBetweenBoom = numRoundsBetweenBoom
         self.multiplier = multiplier
     }

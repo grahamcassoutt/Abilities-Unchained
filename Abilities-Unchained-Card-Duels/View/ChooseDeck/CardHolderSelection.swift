@@ -28,7 +28,7 @@ struct CardHolderSelection: View {
                 Text("Choose").foregroundColor(Color.black)
             }
             .sheet(isPresented: $isPresented) {
-                OwnedCharacters(charactersOwned: [], hasAbility: hasAbility)
+                OwnedCharacters(charactersOwned: currentUser.charactersOwned, hasAbility: hasAbility)
             }
         }
     }

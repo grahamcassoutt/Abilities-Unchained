@@ -33,9 +33,6 @@ class AbilityModel:
         return list(self.collection.find())
     
     def get_abilities_by_level(self, data):
-        for req in data:
-            req['abilityId'] = ObjectId(req['abilityId'])
-
         return self.collection.aggregate([
             {
                 '$match': {'_id': {'$in': [req['abilityId'] for req in data]}}

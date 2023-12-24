@@ -93,9 +93,22 @@ class AbilityEndpoints:
     def get_abilities_by_levels(self):
         try:
             data = request.get_json()
-            abilities_with_levels = []
             abilitiesOneLevel = self.abilityModel.get_abilities_by_level(data)
             abilities_with_levels = [Ability.from_dict(ability).to_dict() for ability in abilitiesOneLevel]
+            # abilities = []
+            # for ability in abilities_with_levels:
+            #     filtered_stats = []
+
+            #     for stat in ability.get('abilityStatistics', []):
+            #         filtered_stat = {
+            #             key: value
+            #             for key, value in stat.items()
+            #             if value is not None and value != 0
+            #         }
+
+            #         filtered_stats.append(filtered_stat)
+            #     ability['abilityStatistics'] = filtered_stats
+            #     abilities.append(ability)
             return abilities_with_levels
 
         except Exception as e:

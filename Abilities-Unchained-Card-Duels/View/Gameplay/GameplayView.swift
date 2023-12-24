@@ -35,15 +35,15 @@ struct GameplayView: View {
                 
                 Spacer()
                 EmptyCardHolderSet(
-                    character1: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card11", unlockedAt: 1, characterStatistics: CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)),
-                    character2: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card3", unlockedAt: 1, characterStatistics: CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)),
+                    character1: Character(_id: "1", name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card11", unlockedAt: 1, characterStatistics: [CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)]),
+                    character2: Character(_id: "2", name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card3", unlockedAt: 1, characterStatistics: [CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)]),
                     character3: nil
                 )
                 Spacer()
                 EmptyCardHolderSet(
-                    character1: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card9", unlockedAt: 1, characterStatistics: CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)),
-                    character2: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card8", unlockedAt: 1, characterStatistics: CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)),
-                    character3: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card14", unlockedAt: 1, characterStatistics: CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5))
+                    character1: Character(_id: "3", name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card9", unlockedAt: 1, characterStatistics: [CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)]),
+                    character2: Character(_id: "4", name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card8", unlockedAt: 1, characterStatistics: [CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)]),
+                    character3: Character(_id: "5", name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card14", unlockedAt: 1, characterStatistics: [CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)])
                 )
                 Spacer()
                 

@@ -7,7 +7,7 @@
 
 import Foundation
  
-class DeathDamage {
+class DeathDamage: Decodable {
     var characters: Int?
     var hitPoints: Int?
     

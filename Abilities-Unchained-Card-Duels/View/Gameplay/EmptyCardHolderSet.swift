@@ -35,8 +35,8 @@ struct EmptyCardHolderSet: View {
 struct EmptyCardHolderSet_Previews: PreviewProvider {
     static var previews: some View {
         EmptyCardHolderSet(
-            character1: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card11", unlockedAt: 1, characterStatistics: CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)),
-            character2: Character(name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card7", unlockedAt: 1, characterStatistics: CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)),
+            character1: Character(_id: "1", name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card11", unlockedAt: 1, characterStatistics: [CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)]),
+            character2: Character(_id: "2", name: "asdf", description: "asdf", backOfCardDescription: "back", photoUrl: "card7", unlockedAt: 1, characterStatistics: [CharacterStatistics(level: 1, health: 2, attack: 3, xpToUpgrade: 4, goldToUpgrade: 5)]),
             character3: nil
         )
     }

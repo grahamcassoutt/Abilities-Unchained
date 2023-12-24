@@ -89,17 +89,35 @@ class UserEndpoints:
             else:
                 user['chests']['currCount'] -= 1
                 user['chests']['chest'] = [chest for chest in user['chests']['chest'] if chest.get('userChestId') != data['userChestId']]
-                print("userChestId to delete:", repr(data['userChestId']))
-                print("userChestId in chest list:", [repr(chest.get('userChestId')) for chest in user['chests']['chest']])
-
-
-            adsf = user['chests']['chest'] 
-            print(adsf)
 
             self.userModel.update_user(data['userId'], user)
             return {"message": "Chests modified successfully"}, 200
         except Exception as e:
             return {"message": f"Failed to update user chests: {str(e)}"}, 500
 
+    def swap_chosen_cards(self):
+        try:
+            data = request.get_json()
+            user = self.userModel.get_user_by_id(data['userId'])
+            del user['_id']
+            
+            if data['ability']:
+                chosen = self.swap(user['abilityCardsSelected'], data['cardToAdd'], data['cardIdToRemove']) 
+                user['abilityCardsSelected'] = chosen               
+            else:
+                chosen = self.swap(user['nonAbilityCardsSelected'], data['cardToAdd'], data['cardIdToRemove']) 
+                user['nonAbilityCardsSelected'] = chosen 
+                
+            self.userModel.update_user(data['userId'], user)
+            return {"message": "Card swapped successfully"}, 200
+        except Exception as e:
+            return {"message": f"Failed to swap selected card: {str(e)}"}, 500
     
-    
+    def swap(self, givenList, cardToAdd, cardIdToRemove = ""):
+        if cardIdToRemove == "":
+            givenList.append(cardToAdd)
+            return givenList
+        filtered_list = [item for item in givenList if item["characterId"] != cardIdToRemove]
+        filtered_list.append(cardToAdd)
+        return filtered_list
+        

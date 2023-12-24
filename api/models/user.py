@@ -2,10 +2,11 @@ from pymongo import MongoClient
 from bson import ObjectId
 
 class CharacterOwned:
-    def __init__(self, characterId, level, currentXp):
+    def __init__(self, characterId, level, currentXp, abilityStats = None):
         self.characterId = characterId
         self.level = level
         self.currentXp = currentXp
+        self.abilityStats = abilityStats
 
     def to_dict(self):
         return {
@@ -13,6 +14,12 @@ class CharacterOwned:
             "level": self.level,
             "currentXp": self.currentXp
         }
+    
+class AbilityStats:
+    def __init__(self, abilityId, level, currentXp):
+        self.abilityId = abilityId
+        self.level = level
+        self.currentXp = currentXp
 
 class Chest:
     def __init__(self, userChestId, chestId, timeLeft, isActive):
@@ -30,7 +37,7 @@ class Chest:
         }
 
 class User:
-    def __init__(self, username, email, displayName, isActive, level, xp, hitpoints, trophies, gold, wins, charactersOwned, chests, game = None, _id=None):
+    def __init__(self, username, email, displayName, isActive, level, xp, hitpoints, trophies, gold, wins, charactersOwned, abilityCardsSelected, nonAbilityCardsSelected, chests, game = None, _id=None):
         self._id = _id
         self.username = username
         self.email = email
@@ -43,6 +50,8 @@ class User:
         self.gold = gold
         self.wins = wins
         self.charactersOwned = charactersOwned
+        self.abilityCardsSelected = abilityCardsSelected
+        self.nonAbilityCardsSelected = nonAbilityCardsSelected
         self.game = game
         self.chests = chests
 
@@ -63,9 +72,30 @@ class User:
                 {
                     "characterId": character.characterId,
                     "level": character.level,
-                    "currentXp": character.currentXp
+                    "currentXp": character.currentXp,
+                    "abilityStats": {
+                        "abilityId": character.abilityStats.abilityId,
+                        "level": character.abilityStats.level,
+                        "currentXp": character.abilityStats.currentXp
+                    } if character.abilityStats else None
                 }
                 for character in self.charactersOwned
+            ],
+            "abilityCardsSelected": [
+                {
+                    "characterId": character.characterId,
+                    "level": character.level,
+                    "currentXp": character.currentXp
+                }
+                for character in self.abilityCardsSelected
+            ],
+            "nonAbilityCardsSelected": [
+                {
+                    "characterId": character.characterId,
+                    "level": character.level,
+                    "currentXp": character.currentXp
+                }
+                for character in self.nonAbilityCardsSelected
             ],
             "chests": {
                 "maxCount": self.chests['maxCount'],
@@ -93,9 +123,32 @@ class User:
             CharacterOwned(
                 characterId=char['characterId'],
                 level=char['level'],
-                currentXp=char['currentXp']
+                currentXp=char['currentXp'],
+                abilityStats=AbilityStats(
+                    abilityId=char['abilityStats']['abilityId'],
+                    level=char['abilityStats']['level'],
+                    currentXp=char['abilityStats']['currentXp']
+                ) if char['abilityStats'] else None
             )
             for char in json_data.get('charactersOwned', [])
+        ]
+
+        abilityCardsSelected = [
+            CharacterOwned(
+                characterId=char['characterId'],
+                level=char['level'],
+                currentXp=char['currentXp']
+            )
+            for char in json_data.get('abilityCardsSelected', [])
+        ]
+
+        nonAbilityCardsSelected = [
+            CharacterOwned(
+                characterId=char['characterId'],
+                level=char['level'],
+                currentXp=char['currentXp']
+            )
+            for char in json_data.get('nonAbilityCardsSelected', [])
         ]
 
         chests = {
@@ -127,5 +180,7 @@ class User:
             gold=json_data['gold'],
             wins=json_data['wins'],
             charactersOwned=characters_owned,
+            abilityCardsSelected=abilityCardsSelected,
+            nonAbilityCardsSelected=nonAbilityCardsSelected,
             chests=chests
         )
